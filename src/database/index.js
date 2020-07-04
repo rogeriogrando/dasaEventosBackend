@@ -8,6 +8,7 @@ import ValidaCertificados from '../app/models/ValidaCertificados';
 import Cursos from '../app/models/Cursos';
 import UsuarioEventos from '../app/models/UsuarioEventos';
 import Certificados from '../app/models/Certificados';
+import Assinaturas from '../app/models/Assinaturas';
 import databaseConfig from '../config/database';
 
 const models = [
@@ -20,6 +21,7 @@ const models = [
   UsuarioEventos,
   ValidaCertificados,
   Certificados,
+  Assinaturas,
 ];
 
 class Database {

@@ -28,6 +28,18 @@ class Eventos extends Model {
     this.belongsTo(models.Locais, { foreignKey: 'local_id', as: 'local' });
     this.belongsTo(models.Cursos, { foreignKey: 'curso_id', as: 'curso' });
     this.belongsTo(models.Modelos, { foreignKey: 'modelo_id', as: 'modelo' });
+    this.belongsTo(models.Assinaturas, {
+      foreignKey: 'assinatura_left_id',
+      as: 'left',
+    });
+    this.belongsTo(models.Assinaturas, {
+      foreignKey: 'assinatura_center_id',
+      as: 'center',
+    });
+    this.belongsTo(models.Assinaturas, {
+      foreignKey: 'assinatura_right_id',
+      as: 'right',
+    });
   }
 }
 

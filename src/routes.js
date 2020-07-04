@@ -3,6 +3,7 @@ import multer from 'multer';
 import multerConfig from './config/upload';
 import multerConfigCert from './config/certificado';
 import multerConfigValCert from './config/validacertificado';
+import multerConfigAssinaturas from './config/assinaturas';
 
 import UsuarioController from './app/controllers/UsuarioController';
 import SessionController from './app/controllers/SessionController';
@@ -11,7 +12,6 @@ import InstituicaoController from './app/controllers/InstituicaoController';
 import LocalController from './app/controllers/LocalController';
 import PermissaoController from './app/controllers/PermissaoController';
 import EventosController from './app/controllers/EventosController';
-import PdfController from './app/controllers/PdfController';
 import ModeloController from './app/controllers/ModeloController';
 import CursoController from './app/controllers/CursoController';
 import CoordenadorController from './app/controllers/CoordenadorController';
@@ -19,14 +19,15 @@ import UsuarioEventosController from './app/controllers/UsuarioEventosController
 import UsuarioEventosPresencaController from './app/controllers/UsuarioEventosPresencaController';
 import ValidaCertificadoController from './app/controllers/ValidaCertificadoController';
 import CertificadoController from './app/controllers/CertificadoController';
+import AssinaturaController from './app/controllers/AssinaturaController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
 const validacertificados = multer(multerConfigValCert);
 const certificados = multer(multerConfigCert);
+const assinaturas = multer(multerConfigAssinaturas);
 routes.post('/usuarios', UsuarioController.store);
 routes.post('/sessions', SessionController.store);
-routes.get('/pdf', PdfController.index);
 
 routes.use(authMiddlewarer);
 routes.put('/usuarios', UsuarioController.update);
@@ -86,6 +87,20 @@ routes.post(
   '/certificados/:evento_id',
   certificados.single('file'),
   CertificadoController.store
+);
+
+routes.post(
+  '/assinaturas',
+  assinaturas.single('file'),
+  AssinaturaController.store
+);
+routes.get('/assinaturas', AssinaturaController.index);
+routes.get('/assinaturas/:id', AssinaturaController.show);
+routes.delete('/assinaturas/:id', AssinaturaController.delete);
+routes.put(
+  '/assinaturas/:id',
+  assinaturas.single('file'),
+  AssinaturaController.update
 );
 
 export default routes;

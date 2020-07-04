@@ -19,6 +19,9 @@ class EventoController {
       horaini: Yup.string().required(),
       horafim: Yup.string().required(),
       ativo: Yup.boolean().required(),
+      assinatura_left_id: Yup.number(),
+      assinatura_cenetr_id: Yup.number(),
+      assinatura_right_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -69,6 +72,9 @@ class EventoController {
       horafim,
       publico,
       ativo,
+      assinatura_left_id,
+      assinatura_center_id,
+      assinatura_right_id,
     } = await Eventos.create(req.body);
     return res.json({
       id,
@@ -84,6 +90,9 @@ class EventoController {
       horafim,
       publico,
       ativo,
+      assinatura_left_id,
+      assinatura_center_id,
+      assinatura_right_id,
     });
   }
 
@@ -97,16 +106,23 @@ class EventoController {
               to_char(e.horafim, 'HH24'||chr(58)||'MI') as horafim,
               l.nome, l.capacidade, count(ue.evento_id)::integer as inscritos,
              (l.capacidade - count(ue.evento_id))::integer as  restante, e.ativo, e.dizeres,
-              m.descricao as modelo_descricao, e.modelo_id
+              m.descricao as modelo_descricao, e.modelo_id,
+              e.assinatura_left_id, al.descricao as descricao_left,
+              e.assinatura_center_id,  ac.descricao as descricao_center,
+              e.assinatura_right_id,  ar.descricao as descricao_right
       FROM eventos e
       JOIN locais l ON e.local_id = l.id
       LEFT JOIN cursos c ON e.curso_id = c.id
       LEFT JOIN usuario_eventos ue ON ue.evento_id = e.id
       LEFT JOIN modelos m ON m.id = e.modelo_id
+      LEFT JOIN assinaturas al ON al.id = e.assinatura_left_id
+      LEFT JOIN assinaturas ac ON ac.id = e.assinatura_center_id
+      LEFT JOIN assinaturas ar ON ar.id = e.assinatura_right_id
       WHERE e.data >= CAST(now() as date) - interval '1 day' AND e.ativo
         AND  e.id NOT IN ( SELECT evento_id FROM usuario_eventos WHERE usuario_id = :usuario)
       GROUP BY e.id, e.palestrante, e.titulo, e.descricao, e.data, e.horaini, e.horafim,
-               l.nome, l.capacidade, c.nome, ue.evento_id, m.descricao, e.modelo_id
+               l.nome, l.capacidade, c.nome, ue.evento_id, m.descricao, e.modelo_id,
+               al.descricao, ac.descricao, ar.descricao
       ORDER BY e.data`,
       {
         replacements: { usuario: req.userId },
@@ -128,16 +144,23 @@ class EventoController {
       to_char(e.horafim, 'HH24'||chr(58)||'MI') as horafim,
       l.nome, l.capacidade, count(ue.evento_id)::integer as inscritos,
      (l.capacidade - count(ue.evento_id))::integer as  restante, e.ativo, e.dizeres,
-      m.descricao as modelo_descricao, e.modelo_id
+      m.descricao as modelo_descricao, e.modelo_id,
+      e.assinatura_left_id, al.descricao as descricao_left,
+      e.assinatura_center_id,  ac.descricao as descricao_center,
+      e.assinatura_right_id,  ar.descricao as descricao_right
 FROM eventos e
 JOIN locais l ON e.local_id = l.id
 LEFT JOIN cursos c ON e.curso_id = c.id
 LEFT JOIN usuario_eventos ue ON ue.evento_id = e.id
 LEFT JOIN modelos m ON m.id = e.modelo_id
+LEFT JOIN assinaturas al ON al.id = e.assinatura_left_id
+LEFT JOIN assinaturas ac ON ac.id = e.assinatura_center_id
+LEFT JOIN assinaturas ar ON ar.id = e.assinatura_right_id
 WHERE data >= now()::date AND e.ativo AND e.curso_id = :curso
   AND  e.id NOT IN ( SELECT evento_id FROM usuario_eventos WHERE usuario_id = :usuario)
 GROUP BY e.id, e.palestrante, e.titulo, e.descricao, e.data, e.horaini, e.horafim,
-       l.nome, l.capacidade, c.nome, ue.evento_id,  m.descricao, e.modelo_id
+       l.nome, l.capacidade, c.nome, ue.evento_id,  m.descricao, e.modelo_id,
+       al.descricao, ac.descricao, ar.descricao
        ORDER BY e.data`,
       {
         replacements: { usuario: req.userId, curso: req.params.id },

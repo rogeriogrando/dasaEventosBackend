@@ -26,6 +26,10 @@ class App {
       '/certificados',
       express.static(path.resolve(__dirname, '..', 'tmp', 'certificados'))
     );
+    this.server.use(
+      '/assinaturas',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'assinaturas'))
+    );
   }
 
   routes() {

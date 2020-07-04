@@ -18,6 +18,14 @@ class App {
       '/modelos',
       express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
     );
+    this.server.use(
+      '/validacertificados',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'validacertificados'))
+    );
+    this.server.use(
+      '/certificados',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'certificados'))
+    );
   }
 
   routes() {

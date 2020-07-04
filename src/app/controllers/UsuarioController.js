@@ -80,6 +80,7 @@ class UsuarioController {
     if (oldPass && !(await usuario.checkPassword(oldPass))) {
       return res.status(400).json({ error: 'A senha antiga não confere.' });
     }
+
     const {
       nome,
       telefone,
@@ -89,9 +90,11 @@ class UsuarioController {
       url_twiter,
       url_facebook,
       url_lattes,
+      papel,
     } = await usuario.update(req.body);
     return res.json({
       nome,
+      email,
       telefone,
       dados_adicionais,
       avatar,
@@ -99,6 +102,7 @@ class UsuarioController {
       url_twiter,
       url_facebook,
       url_lattes,
+      papel,
     });
   }
 }

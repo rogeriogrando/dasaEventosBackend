@@ -1,42 +1,30 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('eventos', {
+    return queryInterface.createTable('certificados', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      descricao: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      data: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
-      sala_id: {
+      evento_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'salas', key: 'id' },
+        references: { model: 'eventos', key: 'id' },
         allowNull: false,
       },
-      palestrante_id: {
+      usuario_id: {
         type: Sequelize.INTEGER,
         references: { model: 'usuarios', key: 'id' },
         allowNull: false,
       },
-      horaini: {
-        type: Sequelize.TIME,
+      name: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
-      horafim: {
-        type: Sequelize.TIME,
+      path: {
+        type: Sequelize.STRING,
         allowNull: false,
-      },
-      publico: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
+        unique: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -50,6 +38,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('eventos');
+    return queryInterface.dropTable('certificados');
   },
 };

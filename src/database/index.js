@@ -1,12 +1,26 @@
 import Sequelize from 'sequelize';
 import Usuarios from '../app/models/Usuarios';
 import Instituicoes from '../app/models/Instituicoes';
-import Salas from '../app/models/Salas';
+import Locais from '../app/models/Locais';
 import Eventos from '../app/models/Eventos';
 import Modelos from '../app/models/Modelos';
+import ValidaCertificados from '../app/models/ValidaCertificados';
+import Cursos from '../app/models/Cursos';
+import UsuarioEventos from '../app/models/UsuarioEventos';
+import Certificados from '../app/models/Certificados';
 import databaseConfig from '../config/database';
 
-const models = [Usuarios, Instituicoes, Salas, Eventos, Modelos];
+const models = [
+  Usuarios,
+  Instituicoes,
+  Locais,
+  Eventos,
+  Modelos,
+  Cursos,
+  UsuarioEventos,
+  ValidaCertificados,
+  Certificados,
+];
 
 class Database {
   constructor() {

@@ -4,13 +4,18 @@ class Eventos extends Model {
   static init(sequelize) {
     super.init(
       {
+        palestrante: Sequelize.STRING,
+        titulo: Sequelize.STRING,
+        dizeres: Sequelize.STRING,
         descricao: Sequelize.STRING(255),
-        palestrante_id: Sequelize.INTEGER,
-        sala_id: Sequelize.INTEGER,
+        local_id: Sequelize.INTEGER,
+        curso_id: Sequelize.INTEGER,
+        modelo_id: Sequelize.INTEGER,
         data: Sequelize.DATE,
         horaini: Sequelize.TIME,
         horafim: Sequelize.TIME,
         publico: Sequelize.BOOLEAN,
+        ativo: Sequelize.BOOLEAN,
       },
       {
         sequelize,
@@ -20,11 +25,9 @@ class Eventos extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Salas, { foreignKey: 'sala_id', as: 'sala' });
-    this.belongsTo(models.Usuarios, {
-      foreignKey: 'palestrante_id',
-      as: 'palestrante',
-    });
+    this.belongsTo(models.Locais, { foreignKey: 'local_id', as: 'local' });
+    this.belongsTo(models.Cursos, { foreignKey: 'curso_id', as: 'curso' });
+    this.belongsTo(models.Modelos, { foreignKey: 'modelo_id', as: 'modelo' });
   }
 }
 

@@ -1,19 +1,12 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Certificados extends Model {
+class UsuarioEventos extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
-        path: Sequelize.STRING,
         evento_id: Sequelize.INTEGER,
         usuario_id: Sequelize.INTEGER,
-        url: {
-          type: Sequelize.VIRTUAL,
-          get() {
-            return `${process.env.APP_URL}/certificados/${this.path}`;
-          },
-        },
+        presenca: Sequelize.BOOLEAN,
       },
       {
         sequelize,
@@ -31,4 +24,4 @@ class Certificados extends Model {
   }
 }
 
-export default Certificados;
+export default UsuarioEventos;

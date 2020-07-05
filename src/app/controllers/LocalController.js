@@ -55,17 +55,11 @@ class LocalController {
   }
 
   async index(req, res) {
-    if (req.userPapel !== 'coordenador' && req.userPapel !== 'admin') {
-      return res.status(401).json({ error: 'Usuário não possui permissão.' });
-    }
     const locais = await Local.findAll();
     return res.json(locais);
   }
 
   async show(req, res) {
-    if (req.userPapel !== 'coordenador' && req.userPapel !== 'admin') {
-      return res.status(401).json({ error: 'Usuário não possui permissão.' });
-    }
     const locais = await Local.findByPk(req.params.id);
     return res.json(locais);
   }

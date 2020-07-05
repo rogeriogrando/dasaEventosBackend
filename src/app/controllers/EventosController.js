@@ -172,6 +172,9 @@ GROUP BY e.id, e.palestrante, e.titulo, e.descricao, e.data, e.horaini, e.horafi
   }
 
   async update(req, res) {
+    if (req.userPapel !== 'coordenador' && req.userPapel !== 'admin') {
+      return res.status(401).json({ error: 'Usuário não possui permissão.' });
+    }
     const evento = await Eventos.findByPk(req.params.id);
 
     if (!evento) {

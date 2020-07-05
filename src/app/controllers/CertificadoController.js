@@ -6,6 +6,7 @@ import Certificados from '../models/Certificados';
 import Eventos from '../models/Eventos';
 import Usuarios from '../models/Usuarios';
 import Modelo from '../models/Modelos';
+import Assinaturas from '../models/Assinaturas';
 import databaseConfig from '../../config/database';
 
 class CertificadoController {
@@ -16,8 +17,9 @@ class CertificadoController {
         evento_id: req.params.evento_id,
       },
     });
-
-    await oldCertificado.destroy();
+    if (oldCertificado) {
+      await oldCertificado.destroy();
+    }
 
     const evento = await Eventos.findByPk(req.params.evento_id);
     const { nome } = await Usuarios.findByPk(req.userId);
@@ -30,6 +32,21 @@ class CertificadoController {
     }
     if (!evento) {
       return res.status(400).json({ error: 'Evento não encontrado.' });
+    }
+
+    let assEsquerda = await Assinaturas.findByPk(evento.assinatura_left_id);
+    if (!assEsquerda) {
+      assEsquerda = '';
+    }
+
+    let assCentro = await Assinaturas.findByPk(evento.assinatura_center_id);
+    if (!assCentro) {
+      assCentro = '';
+    }
+
+    let assDireita = await Assinaturas.findByPk(evento.assinatura_right_id);
+    if (!assDireita) {
+      assDireita = '';
     }
 
     const name = `certificado${req.userId}-${req.params.evento_id}.pdf`;
@@ -91,23 +108,32 @@ class CertificadoController {
     const emissao = `Tatuí, ${formattedDate}`;
 
     const conteudo = `
-      <!DOCTYPE html>
-        <body>
-          <div style="display: inline-block; position: relative;">
-            <img src=${modelo.url}>
-            <div style="position: absolute; top: 300px; left: 100px; right: 100px; text-align: justify;">
-              <h3>${newDizeres}</h3>
-              <div style="text-align: center;">
-                <h3>
-                  </br>
-                  <p>${emissao}</p>
-                </h2>
-              </div>
-            </div>
+    <!DOCTYPE html>
+    <body style="magin: 0; padding: 0;">
+      <div style="display: inline-block; position: relative;">
+        <img src=${modelo.url} width="1122"; height="770"; margin: 0px; padding: 0px>
+        <div style="position: absolute; top: 300px; left: 100px; right: 100px; text-align: justify;">
+          <h3>${newDizeres}</h3>
+          <div style="text-align: center;">
+            <h3>
+              </br>
+              <p>${emissao}</p>
+            </h3>
           </div>
-        </body>
-      </html>
-      `;
+          <div>
+            </br>
+            </br>
+            </br>
+          <div style="text-align: center">
+            <img  src=${assEsquerda.url} style="float:left"  >
+            <img src=${assCentro.url}>
+            <img src=${assDireita.url} style="float:right" >
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+    `;
 
     pdf.create(conteudo, { format: 'A4', orientation: 'landscape' }).toFile(
       `./tmp/certificados/certificado${req.userId}-${req.params.evento_id}.pdf`,

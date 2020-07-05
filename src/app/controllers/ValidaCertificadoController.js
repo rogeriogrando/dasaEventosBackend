@@ -5,6 +5,7 @@ import ValidaCertificados from '../models/ValidaCertificados';
 import Evento from '../models/Eventos';
 import Modelo from '../models/Modelos';
 import Usuarios from '../models/Usuarios';
+import Assinaturas from '../models/Assinaturas';
 
 class ValidaCertificadoController {
   async store(req, res) {
@@ -28,17 +29,27 @@ class ValidaCertificadoController {
       return res.status(400).json({ error: 'Modelo não encontrado.' });
     }
 
+    const assinatura = await Assinaturas.findOne();
+
     const conteudo = `
     <!DOCTYPE html>
       <body>
         <div style="display: inline-block; position: relative;">
-          <img src=${modelo.url}>
-          <div style="position: absolute; top: 300px; left: 100px; right: 100px; text-align: justify;">
+          <img src=${modelo.url} width="1122"; height="770"; margin: 0px; padding: 0px>
+          <div style="position: absolute; top: 300px; left: 100px; right: 100px; text-align: justify">
             <h3>${diseres1}${participante}${diseres2}${evento}${diseres3}${palestrante}${cargaHoraria}</h3>
             <div style="text-align: center;">
               <h3>
                 </br>
                 <p>${entrega}</p>
+              </h2>
+            </div>
+            <div style="text-align: center;">
+              <h3>
+                </br>
+                </br>
+                </br>
+                <img src=${assinatura.url} >
               </h2>
             </div>
           </div>
@@ -83,6 +94,21 @@ class ValidaCertificadoController {
     const modelo = await Modelo.findByPk(evento.modelo_id);
     if (!modelo) {
       return res.status(400).json({ error: 'Modelo não encontrado.' });
+    }
+
+    let assEsquerda = await Assinaturas.findByPk(evento.assinatura_left_id);
+    if (!assEsquerda) {
+      assEsquerda = '';
+    }
+
+    let assCentro = await Assinaturas.findByPk(evento.assinatura_center_id);
+    if (!assCentro) {
+      assCentro = '';
+    }
+
+    let assDireita = await Assinaturas.findByPk(evento.assinatura_right_id);
+    if (!assDireita) {
+      assDireita = '';
     }
 
     const formattedDate = format(
@@ -130,16 +156,25 @@ class ValidaCertificadoController {
 
     const conteudo = `
     <!DOCTYPE html>
-      <body>
+      <body style="magin: 0; padding: 0;">
         <div style="display: inline-block; position: relative;">
-          <img src=${modelo.url}>
+          <img src=${modelo.url} width="1122"; height="770"; margin: 0px; padding: 0px>
           <div style="position: absolute; top: 300px; left: 100px; right: 100px; text-align: justify;">
             <h3>${newDizeres}</h3>
             <div style="text-align: center;">
               <h3>
                 </br>
                 <p>${emissao}</p>
-              </h2>
+              </h3>
+            </div>
+            <div>
+              </br>
+              </br>
+              </br>
+            <div style="text-align: center">
+              <img  src=${assEsquerda.url} style="float:left"  >
+              <img src=${assCentro.url}>
+              <img src=${assDireita.url} style="float:right" >
             </div>
           </div>
         </div>

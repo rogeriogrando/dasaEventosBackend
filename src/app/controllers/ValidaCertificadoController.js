@@ -58,15 +58,22 @@ class ValidaCertificadoController {
     </html>
     `;
 
-    pdf.create(conteudo, { format: 'A4', orientation: 'landscape' }).toFile(
-      `./tmp/validacertificados/certificado${req.userId}.pdf`,
-      // eslint-disable-next-line consistent-return
-      err => {
-        if (err) {
-          return res.status(400).json({ error: 'Modelo não encontrado.' });
+    pdf
+      .create(conteudo, {
+        format: 'A4',
+        zoomFactor: 1,
+        orientation: 'landscape',
+        border: 0,
+      })
+      .toFile(
+        `./tmp/validacertificados/certificado${req.userId}.pdf`,
+        // eslint-disable-next-line consistent-return
+        err => {
+          if (err) {
+            return res.status(400).json({ error: 'Modelo não encontrado.' });
+          }
         }
-      }
-    );
+      );
 
     const oldCertificado = await ValidaCertificados.findOne({
       where: { path: `certificado${req.userId}.pdf` },

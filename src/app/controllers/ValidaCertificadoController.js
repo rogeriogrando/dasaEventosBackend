@@ -34,7 +34,7 @@ class ValidaCertificadoController {
     const conteudo = `
     <!DOCTYPE html>
       <body>
-        <div style="display: inline-block; position: relative;">
+        <div style="display: inline-block; position: relative; width: 793px; height: 1122px;">
           <img src=${modelo.url} margin: 0px; padding: 0px>
           <div style="position: absolute; top: 210px; left: 100px; right: 100px; text-align: justify">
             <h5>${diseres1}${participante}${diseres2}${evento}${diseres3}${palestrante}${cargaHoraria}</h5>

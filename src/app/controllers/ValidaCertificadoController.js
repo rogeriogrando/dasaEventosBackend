@@ -88,12 +88,28 @@ class ValidaCertificadoController {
     if (req.userPapel !== 'coordenador' && req.userPapel !== 'admin') {
       return res.status(401).json({ error: 'Usuário não possui permissão.' });
     }
-
     const evento = await Evento.findByPk(req.params.id);
     const { nome } = await Usuarios.findByPk(req.userId);
+
+    if (!evento) {
+      return res.status(400).json({ error: 'Modelo não encontrado.' });
+    }
+
     const modelo = await Modelo.findByPk(evento.modelo_id);
     if (!modelo) {
       return res.status(400).json({ error: 'Modelo não encontrado.' });
+    }
+
+    if (!evento) {
+      return res.status(400).json({ error: 'Evento não encontrado.' });
+    }
+
+    if (
+      evento.assinatura_left_id === null &&
+      evento.assinatura_center_id === null &&
+      evento.assinatura_right_id === null
+    ) {
+      return res.status(400).json({ error: 'Assinatura é obrigatória.' });
     }
 
     let assEsquerda = await Assinaturas.findByPk(evento.assinatura_left_id);

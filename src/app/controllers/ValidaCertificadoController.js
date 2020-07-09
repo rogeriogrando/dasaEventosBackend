@@ -36,8 +36,8 @@ class ValidaCertificadoController {
       <body>
         <div style="display: inline-block; position: relative;">
           <img src=${modelo.url} margin: 0px; padding: 0px>
-          <div style="position: absolute; top: 200px; left: 100px; right: 100px; text-align: justify">
-            <h4>${diseres1}${participante}${diseres2}${evento}${diseres3}${palestrante}${cargaHoraria}</h4>
+          <div style="position: absolute; top: 180px; left: 100px; right: 100px; text-align: justify">
+            <h5>${diseres1}${participante}${diseres2}${evento}${diseres3}${palestrante}${cargaHoraria}</h5>
             <div style="text-align: center;">
               <h3>
                 </br>

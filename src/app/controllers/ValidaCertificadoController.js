@@ -72,7 +72,9 @@ class ValidaCertificadoController {
       where: { path: `certificado${req.userId}.pdf` },
     });
 
-    await oldCertificado.destroy();
+    if (oldCertificado) {
+      await oldCertificado.destroy();
+    }
 
     const name = 'teste';
     const path = `certificado${req.userId}.pdf`;
@@ -211,7 +213,9 @@ class ValidaCertificadoController {
       where: { path: `certificado${req.userId}.pdf` },
     });
 
-    await oldCertificado.destroy();
+    if (oldCertificado) {
+      await oldCertificado.destroy();
+    }
 
     const name = 'teste';
     const path = `certificado${req.userId}.pdf`;

@@ -61,6 +61,8 @@ class ValidaCertificadoController {
     pdf
       .create(conteudo, {
         format: 'A4',
+        width: '10.5in',
+        height: '8in',
         zoomFactor: 1,
         orientation: 'landscape',
         border: 0,

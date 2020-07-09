@@ -138,11 +138,10 @@ class CertificadoController {
     pdf.create(conteudo, { format: 'A4', orientation: 'landscape' }).toFile(
       `./tmp/certificados/certificado${req.userId}-${req.params.evento_id}.pdf`,
       // eslint-disable-next-line consistent-return
-      (err, response) => {
+      err => {
         if (err) {
           return res.status(400).json({ error: 'Modelo não encontrado.' });
         }
-        console.log(response);
       }
     );
 

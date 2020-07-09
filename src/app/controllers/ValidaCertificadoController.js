@@ -36,21 +36,21 @@ class ValidaCertificadoController {
       <body>
         <div style="display: inline-block; position: relative;">
           <img src=${modelo.url} margin: 0px; padding: 0px>
-          <div style="position: absolute; top: 180px; left: 100px; right: 100px; text-align: justify">
+          <div style="position: absolute; top: 210px; left: 100px; right: 100px; text-align: justify">
             <h5>${diseres1}${participante}${diseres2}${evento}${diseres3}${palestrante}${cargaHoraria}</h5>
             <div style="text-align: center;">
-              <h3>
+              <h5>
                 </br>
                 <p>${entrega}</p>
-              </h2>
+              </h5>
             </div>
             <div style="text-align: center;">
-              <h3>
+              <h5>
                 </br>
                 </br>
                 </br>
                 <img src=${assinatura.url} >
-              </h2>
+              </h5>
             </div>
           </div>
         </div>
@@ -61,9 +61,6 @@ class ValidaCertificadoController {
     pdf
       .create(conteudo, {
         format: 'A4',
-        width: '10.5in',
-        height: '8in',
-        zoomFactor: 1,
         orientation: 'landscape',
         border: 0,
       })

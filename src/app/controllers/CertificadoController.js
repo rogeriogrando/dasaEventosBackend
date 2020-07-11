@@ -109,29 +109,31 @@ class CertificadoController {
 
     const conteudo = `
     <!DOCTYPE html>
-    <body style="magin: 0; padding: 0;">
-      <div style="display: inline-block; position: relative;">
-        <img src=${modelo.url} width="1122"; height="770"; margin: 0px; padding: 0px>
-        <div style="position: absolute; top: 300px; left: 100px; right: 100px; text-align: justify;">
-          <h3>${newDizeres}</h3>
-          <div style="text-align: center;">
-            <h3>
-              </br>
-              <p>${emissao}</p>
-            </h3>
-          </div>
-          <div>
-            </br>
-            </br>
-            </br>
-          <div style="text-align: center">
-            <img  src=${assEsquerda.url} style="float:left"  >
-            <img src=${assCentro.url}>
-            <img src=${assDireita.url} style="float:right" >
+      <body style="magin: 0; padding: 0;">
+        <div style="display: inline-block; position: relative;">
+          <img src=${modelo.url} margin: 0px; padding: 0px; width=100%>
+          <div style="position: absolute; top: 210px; left: 100px; right: 100px; text-align: justify;">
+            <h5>${newDizeres}</h5>
+            <div style="text-align: center;">
+              <h5>
+                </br>
+                <p>${emissao}</p>
+              </h5>
+            </div>
+            <div>
+              <h5>
+                </br>
+                </br>
+                <div style="text-align: center">
+                  <img  src=${assEsquerda.url} style="float:left"  >
+                  <img src=${assCentro.url}>
+                  <img src=${assDireita.url} style="float:right" >
+                </div>
+              </h5>
+            </div>
           </div>
         </div>
-      </div>
-    </body>
+      </body>
     </html>
     `;
 

@@ -21,7 +21,7 @@ class ValidaCertificadoController {
     const diseres3 = ', ministrado por ';
     const palestrante = 'Pedro Álvares Cabral';
     const cargaHoraria =
-      'com a carga horária de 02(duas) horas, realizado no dia 15 de fevereiro de 1950';
+      ' com a carga horária de 02(duas) horas, realizado no dia 15 de fevereiro de 1950.';
     const entrega = 'Tatuí, 15 de fevereiro de 1950';
 
     const modelo = await Modelo.findByPk(req.params.id);
@@ -46,7 +46,6 @@ class ValidaCertificadoController {
             </div>
             <div style="text-align: center;">
               <h5>
-                </br>
                 </br>
                 </br>
                 <img src=${assinatura.url} >

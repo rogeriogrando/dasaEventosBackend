@@ -20,6 +20,7 @@ import UsuarioEventosPresencaController from './app/controllers/UsuarioEventosPr
 import ValidaCertificadoController from './app/controllers/ValidaCertificadoController';
 import CertificadoController from './app/controllers/CertificadoController';
 import AssinaturaController from './app/controllers/AssinaturaController';
+import ResetPassword from './app/controllers/ResetPassword';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -28,6 +29,8 @@ const certificados = multer(multerConfigCert);
 const assinaturas = multer(multerConfigAssinaturas);
 routes.post('/usuarios', UsuarioController.store);
 routes.post('/sessions', SessionController.store);
+routes.get('/resetpassword', ResetPassword.index);
+routes.put('/resetpassword/:token', ResetPassword.update);
 
 routes.use(authMiddlewarer);
 routes.put('/usuarios', UsuarioController.update);

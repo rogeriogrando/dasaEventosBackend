@@ -5,16 +5,23 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/server.js",
+    "queue": "nodemon src/queue.js",
     "build": "sucrase ./src -d ./dist --transforms imports",
     "start": "node dist/server.js"
   },
   "dependencies": {
+    "@fast-csv/format": "^4.3.1",
+    "@fast-csv/parse": "^4.3.1",
+    "archiver": "^5.0.0",
     "bcryptjs": "^2.4.3",
+    "bee-queue": "^1.2.3",
+    "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "date-fns": "^2.14.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.0.0",
+    "fast-csv": "^4.3.1",
     "helmet": "^3.23.3",
     "html-pdf": "^2.2.0",
     "jsonwebtoken": "^8.5.1",

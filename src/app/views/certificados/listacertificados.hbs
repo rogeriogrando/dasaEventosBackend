@@ -1,0 +1,25 @@
+{{#each lista}}
+<div style="display: inline-block; position: relative;">
+  <img src={{{ url }}} margin: 0px; padding: 0px; width=100%>
+  <div style="position: absolute; top: 210px; left: 100px; right: 100px; text-align: justify;">
+    <h5>{{{ dizeres }}}</h5>
+    <div style="text-align: center;">
+      <h5>
+        </br>
+        <p>{{{ emissao }}}</p>
+      </h5>
+    </div>
+    <div>
+      <h5>
+        </br>
+        </br>
+        <div style="text-align: center">
+          <img src={{{ assEsquerda }}} style="float:left">
+          <img src={{{ assCentro }}}>
+          <img src={{{ assDireita }}} style="float:right">
+        </div>
+      </h5>
+    </div>
+  </div>
+</div>
+{{/each}}

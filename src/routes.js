@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/upload';
-import multerConfigCert from './config/certificado';
-import multerConfigValCert from './config/validacertificado';
 import multerConfigAssinaturas from './config/assinaturas';
+import multerListaParticipantes from './config/listaparticipantes';
 
 import UsuarioController from './app/controllers/UsuarioController';
 import SessionController from './app/controllers/SessionController';
@@ -17,19 +16,24 @@ import CursoController from './app/controllers/CursoController';
 import CoordenadorController from './app/controllers/CoordenadorController';
 import UsuarioEventosController from './app/controllers/UsuarioEventosController';
 import UsuarioEventosPresencaController from './app/controllers/UsuarioEventosPresencaController';
+import ValidaCertificadoEventoController from './app/controllers/ValidaCertificadoEventoController';
+import GeraCertificadoController from './app/controllers/GeraCertificadoController';
+import GeraListaCertificadoController from './app/controllers/GeraListaCertificadoController';
 import ValidaCertificadoController from './app/controllers/ValidaCertificadoController';
 import CertificadoController from './app/controllers/CertificadoController';
 import AssinaturaController from './app/controllers/AssinaturaController';
 import ResetPassword from './app/controllers/ResetPassword';
+import ListaParticipantesController from './app/controllers/ListaParticipantesController';
+import CertificadoListaController from './app/controllers/CertificadoListaController';
+import TodosEventosController from './app/controllers/TodosEventosController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
-const validacertificados = multer(multerConfigValCert);
-const certificados = multer(multerConfigCert);
 const assinaturas = multer(multerConfigAssinaturas);
+const listaparticipantes = multer(multerListaParticipantes);
 routes.post('/usuarios', UsuarioController.store);
 routes.post('/sessions', SessionController.store);
-routes.get('/resetpassword', ResetPassword.index);
+routes.post('/resetpassword', ResetPassword.store);
 routes.put('/resetpassword/:token', ResetPassword.update);
 
 routes.use(authMiddlewarer);
@@ -77,19 +81,18 @@ routes.get('/modelos/:id', ModeloController.show);
 routes.delete('/modelos/:id', ModeloController.delete);
 routes.put('/modelos/:id', upload.single('file'), ModeloController.update);
 
-routes.post(
-  '/validacertificados/:id',
-  validacertificados.single('file'),
-  ValidaCertificadoController.store
-);
-
 routes.get('/validacertificados/:id', ValidaCertificadoController.show);
 
+routes.get(
+  '/validacertificadoeventos/:id',
+  ValidaCertificadoEventoController.show
+);
+
 routes.get('/certificados', CertificadoController.index);
-routes.post(
-  '/certificados/:evento_id',
-  certificados.single('file'),
-  CertificadoController.store
+routes.get('/geracertificados/:evento_id', GeraCertificadoController.show);
+routes.get(
+  '/geralistacertificados/:evento_id',
+  GeraListaCertificadoController.show
 );
 
 routes.post(
@@ -105,5 +108,20 @@ routes.put(
   assinaturas.single('file'),
   AssinaturaController.update
 );
+
+routes.post(
+  '/listaparticipantes',
+  listaparticipantes.single('file'),
+  ListaParticipantesController.store
+);
+routes.put('/listaparticipantes/:id', ListaParticipantesController.update);
+routes.get(
+  '/listaparticipantes/:evento_id',
+  ListaParticipantesController.index
+);
+
+routes.post('/certificadolista', CertificadoListaController.store);
+
+routes.get('/todoseventos', TodosEventosController.index);
 
 export default routes;

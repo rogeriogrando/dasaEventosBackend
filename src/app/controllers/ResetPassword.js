@@ -30,13 +30,13 @@ class ResetPassword {
         return res.status(401).json({ error: 'Acesso negado.' });
       }
       await usuario.update(req.body);
-      return res.status(202).send({ message: 'Ok' });
+      return res.status(202).send({ message: 'Senha alterada com sucesso' });
     } catch (err) {
       return res.status(401).json({ error: 'Acesso negado.' });
     }
   }
 
-  async index(req, res) {
+  async store(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string()
         .email()
@@ -65,6 +65,7 @@ class ResetPassword {
         nome,
       },
     });
+
     return res.json({ email });
   }
 }

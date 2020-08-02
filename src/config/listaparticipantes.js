@@ -3,9 +3,9 @@ import { resolve } from 'path';
 
 export default {
   storage: multer.diskStorage({
-    destination: resolve(__dirname, '..', '..', 'tmp', 'validacertificados'),
+    destination: resolve(__dirname, '..', '..', 'tmp', 'listaparticipantes'),
     filename: (req, file, cb) => {
-      cb(null, `certificado${req.userId}.pdf`);
+      cb(null, `listaparticipantes${req.userId}.csv`);
     },
   }),
 };

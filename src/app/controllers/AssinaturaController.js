@@ -71,11 +71,15 @@ class AssinaturaController {
       return res.status(400).json({ error: 'Assinaturas não encontrado.' });
     }
 
-    await assinatura.destroy();
-
-    const assinaturaNew = await Assinaturas.findAll();
-
-    return res.json({ assinaturaNew });
+    try {
+      await assinatura.destroy();
+      const assinaturaNew = await Assinaturas.findAll();
+      return res.json({ assinaturaNew });
+    } catch (err) {
+      return res.status(424).send({
+        message: 'This is an error!',
+      });
+    }
   }
 }
 

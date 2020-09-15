@@ -1,10 +1,10 @@
 export default {
-  host: 'smtp.mailtrap.io',
-  port: '2525',
+  host: 'smtp.gmail.com',
+  port: '587',
   secure: false,
   auth: {
-    user: 'e4b60fadf34eb4',
-    pass: '32748fea7e7c29',
+    user: 'naoresponda@faesb.edu.br',
+    pass: 'noreply#321',
   },
   default: {
     from: 'Equipe Faesb <noreply@faesb.edu.br>',

@@ -48,8 +48,13 @@ class CertificadoListaController {
 
     const hIni = evento.horaini.split(':');
     const hFim = evento.horafim.split(':');
-    const horasTotal = parseInt(hFim[0], 10) - parseInt(hIni[0], 10);
-    const minutoTotal = parseInt(hFim[1], 10) - parseInt(hIni[1], 10);
+    let horasTotal = parseInt(hFim[0], 10) - parseInt(hIni[0], 10);
+    let minutoTotal = parseInt(hFim[1], 10) - parseInt(hIni[1], 10);
+
+    if (minutoTotal < 0) {
+      minutoTotal = 60 + minutoTotal;
+      horasTotal = horasTotal -1;
+    }
 
     let horas = '';
     if (horasTotal === 1) {

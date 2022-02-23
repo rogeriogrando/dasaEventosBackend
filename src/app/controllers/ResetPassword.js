@@ -56,6 +56,7 @@ class ResetPassword {
         .status(400)
         .json({ error: 'Campos com informações incorretas.' });
     }
+
     const { id, nome, papel } = usuario;
     const token = jwt.sign({ id, papel }, authConfig.secret, {
       expiresIn: authConfig.expiresIn,

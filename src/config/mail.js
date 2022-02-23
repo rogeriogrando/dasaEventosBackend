@@ -3,10 +3,10 @@ export default {
   port: '587',
   secure: false,
   auth: {
-    user: 'naoresponda@faesb.edu.br',
-    pass: 'noreply#321',
+    user: 'teste@email',
+    pass: '123',
   },
   default: {
-    from: 'Equipe Faesb <noreply@faesb.edu.br>',
+    from: 'Equipe Faesb',
   },
 };
